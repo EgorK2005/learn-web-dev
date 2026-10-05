@@ -1,26 +1,147 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Выбор даты и времени</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!--
-      ЗАДАНИЕ
-      ========
-      Сверстать страницу выбора даты и времени по своему макету.
+<html lang="ru" class="html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barbershop — Дата и время</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="body">
+  <div class="page">
 
-      Пока это только вёрстка. Никакого JavaScript — ни кликов,
-      ни переходов, ни выбора дня. Всё статично.
+    <header class="header">
+      <a class="header__logo" href="#">
+        <img class="header__logo-img" src="images/e270a63d-fc85-443f-b13a-196ba9320b01.png" alt="Barbershop">
+      </a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a class="nav__link" href="#">Услуги</a></li>
+          <li class="nav__item"><a class="nav__link" href="#">Галерея</a></li>
+          <li class="nav__item"><a class="nav__link" href="#">Команда</a></li>
+          <li class="nav__item"><a class="nav__link" href="#">Отзывы</a></li>
+          <li class="nav__item"><a class="nav__link" href="#">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
 
-      Стили пишите в styles.css. Разметку — здесь.
-    -->
-
-    <div class="page">
-      <!-- Начните отсюда. Разметьте шапку, основную область
-           с календарём и слотами, подвал. -->
+    <div class="steps">
+      <ol class="steps__list">
+        <li class="step step--done"><span class="step__num">1</span><span class="step__line"></span><span class="step__dash"></span></li>
+        <li class="step step--done"><span class="step__num">2</span><span class="step__line"></span><span class="step__dash"></span></li>
+        <li class="step step--active"><span class="step__num">3</span><span class="step__line"></span><span class="step__dash"></span></li>
+        <li class="step"><span class="step__num">4</span><span class="step__line"></span><span class="step__dash"></span></li>
+        <li class="step"><span class="step__num">5</span><span class="step__line"></span></li>
+      </ol>
     </div>
-  </body>
+
+    <main class="main">
+      <div class="main__title-row">
+        <a class="back" href="#" aria-label="Назад">
+          <svg class="icon icon--back" width="10" height="12" viewBox="0 0 10 12"><path class="icon__path" d="M7 1.5 3 6l4 4.5"/></svg>
+        </a>
+        <h1 class="main__title">Дата и время</h1>
+      </div>
+
+      <div class="booking">
+        <section class="card calendar">
+          <div class="calendar__head">
+            <h2 class="card__title">Июнь 2025</h2>
+            <div class="calendar__nav">
+              <a class="arrow" href="#" aria-label="Предыдущий месяц">
+                <svg class="icon icon--arrow" width="10" height="12" viewBox="0 0 10 12"><path class="icon__path" d="M7 1.5 3 6l4 4.5"/></svg>
+              </a>
+              <a class="arrow" href="#" aria-label="Следующий месяц">
+                <svg class="icon icon--arrow" width="10" height="12" viewBox="0 0 10 12"><path class="icon__path" d="M3 1.5 7 6l-4 4.5"/></svg>
+              </a>
+            </div>
+          </div>
+          <ul class="calendar__weekdays">
+            <li class="calendar__weekday">Пн</li><li class="calendar__weekday">Вт</li><li class="calendar__weekday">Ср</li><li class="calendar__weekday">Чт</li><li class="calendar__weekday">Пт</li><li class="calendar__weekday">Сб</li><li class="calendar__weekday">Вс</li>
+          </ul>
+          <ul class="calendar__grid">
+            <li class="day day--muted">26</li>
+            <li class="day day--muted">27</li>
+            <li class="day day--muted">28</li>
+            <li class="day day--muted">29</li>
+            <li class="day day--muted">30</li>
+            <li class="day day--muted">31</li>
+            <li class="day day--muted">1</li>
+            <li class="day">2</li>
+            <li class="day">3</li>
+            <li class="day">4</li>
+            <li class="day">5</li>
+            <li class="day">6</li>
+            <li class="day day--muted">7</li>
+            <li class="day day--muted">8</li>
+            <li class="day">9</li>
+            <li class="day">10</li>
+            <li class="day">11</li>
+            <li class="day">12</li>
+            <li class="day day--selected">13</li>
+            <li class="day">14</li>
+            <li class="day">15</li>
+            <li class="day">16</li>
+            <li class="day">17</li>
+            <li class="day">18</li>
+            <li class="day">19</li>
+            <li class="day">20</li>
+            <li class="day">21</li>
+            <li class="day">22</li>
+          </ul>
+        </section>
+
+        <section class="card times">
+          <h2 class="card__title times__title">Доступное время</h2>
+          <ul class="times__grid">
+            <li class="slot">10:00</li>
+            <li class="slot slot--busy">11:00<span class="slot__note">Занято</span></li>
+            <li class="slot">12:00</li>
+            <li class="slot slot--busy">13:00<span class="slot__note">Занято</span></li>
+            <li class="slot">14:00</li>
+            <li class="slot">15:00</li>
+            <li class="slot slot--selected">16:00</li>
+            <li class="slot">17:00</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="main__actions">
+        <a class="btn" href="#">Далее</a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__top">
+        <img class="footer__logo" src="images/6f37c0e8-a1dc-4062-a05c-702a98681656.png" alt="Barbershop — Cuts, Shaves, Style">
+
+        <div class="footer__contacts">
+          <h2 class="footer__title">Контакты</h2>
+          <p class="footer__item">
+            <svg class="icon icon--pin" width="16" height="18" viewBox="0 0 24 24"><path class="icon__path" d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle class="icon__path" cx="12" cy="10" r="2.5"/></svg>
+            <span class="footer__text">ул. Садовая, 15, Москва</span>
+          </p>
+          <p class="footer__item">
+            <svg class="icon icon--phone" width="16" height="18" viewBox="0 0 24 24"><path class="icon__path" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <a class="footer__phone" href="#">+7 (495) 123-45-67</a>
+          </p>
+        </div>
+
+        <div class="footer__hours">
+          <h3 class="footer__hours-title">Режим работы</h3>
+          <p class="footer__hours-text">Пн–Пт: 9:00 – 21:00</p>
+          <p class="footer__hours-text">Сб–Вс: 10:00 – 19:00</p>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026. Все права защищены.</p>
+        <a class="footer__policy" href="#">Политика конфиденциальности</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
 </html>
