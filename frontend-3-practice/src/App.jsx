@@ -1,57 +1,78 @@
-// App — корневой компонент приложения.
-//
-// ЗАДАНИЕ
-// --------
-// Перенесите свою страницу выбора даты и времени из нативного JS
-// на React. У вас уже есть:
-//   - готовая вёрстка (HTML);
-//   - готовые стили (CSS);
-//   - рабочий код на нативном JS (валидация дат, рендер календаря,
-//     обработчики кликов, выбор слота).
-//
-// Теперь нужно то же самое сделать в React.
-//
-// ЧТО НУЖНО СДЕЛАТЬ
-// ------------------
-// 1. Разбить страницу на компоненты. Как именно — решайте сами.
-//    Обычно выделяют: шапку, подвал, календарь, сетку слотов,
-//    нижнюю панель.
-//
-// 2. Перенести вёрстку из HTML в JSX. Стили оставить как есть,
-//    просто положить их в тот же проект (например, в src/styles/
-//    или рядом с компонентами).
-//
-// 3. Заменить нативное состояние (переменные + прямые манипуляции
-//    с DOM) на useState. Какие именно данные должны жить в состоянии —
-//    подумайте сами. Скорее всего: текущий месяц, выбранный день,
-//    выбранное время, массив слотов.
-//
-// 4. Рендер календаря и слотов делать через JSX и .map(),
-//    без innerHTML и querySelector.
-//
-// 5. Обработчики кликов — через onClick прямо в JSX,
-//    без addEventListener.
-//
-// 6. Функции для работы с датами, которые вы уже написали
-//    на нативном JS (построение сетки календаря, сравнение дат,
-//    проверка «не раньше сегодня»), можно переиспользовать.
-//    Они чистые — не зависят от React. Создайте файл
-//    src/utils/date.js и перенесите их туда.
-//
-//
-// ПОДСКАЗКА
-// ---------
-// Если что-то не работает или непонятно, как перевести нативный
-// код на React — вернитесь к лекции. Там разбирались все
-// основные приёмы: состояние, пропсы, рендер списков, колбэки.
-//
-// Ниже — пустой каркас. Здесь можно начать писать.
+import { useState } from 'react';
+import Header from './components/Header.jsx';
+import Steps from './components/Steps.jsx';
+import Calendar from './components/Calendar.jsx';
+import TimeSlots from './components/TimeSlots.jsx';
+import Footer from './components/Footer.jsx';
+import { TODAY, formatSelection } from './utils/date.js';
+import { getSlotsForDate } from './data/slots.js';
 
 function App() {
+  const [currentMonth, setCurrentMonth] = useState(TODAY.getMonth());
+  const [currentYear, setCurrentYear] = useState(TODAY.getFullYear());
+  const [selectedDay, setSelectedDay] = useState(TODAY); 
+  const [selectedTime, setSelectedTime] = useState(null);
+
+
+  const slots = selectedDay ? getSlotsForDate(selectedDay) : [];
+
+  function handleSelectDay(date) {
+    setSelectedDay(date);
+    setSelectedTime(null);
+  }
+
+  function changeMonth(delta) {
+    const next = new Date(currentYear, currentMonth + delta, 1);
+    setCurrentMonth(next.getMonth());
+    setCurrentYear(next.getFullYear());
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (!selectedDay || !selectedTime) {
+      alert('Выберите дату и время');
+      return;
+    }
+    alert(`Вы выбрали: ${formatSelection(selectedDay, selectedTime)}`);
+  }
+
   return (
-    <div>
-      {/* Начните отсюда. Например, разметьте .page, добавьте шапку,
-            основную область, подвал. */}
+    <div className="page">
+      <Header />
+      <Steps />
+
+      <main className="main">
+        <div className="main__title-row">
+          <a className="back" href="#" aria-label="Назад" onClick={(e) => e.preventDefault()}>
+            <svg className="icon icon--back" width="10" height="12" viewBox="0 0 10 12">
+              <path className="icon__path" d="M7 1.5 3 6l4 4.5" />
+            </svg>
+          </a>
+          <h1 className="main__title">Дата и время</h1>
+        </div>
+
+        <div className="booking">
+          <Calendar
+            year={currentYear}
+            month={currentMonth}
+            selectedDay={selectedDay}
+            onSelectDay={handleSelectDay}
+            onPrevMonth={() => changeMonth(-1)}
+            onNextMonth={() => changeMonth(1)}
+          />
+          <TimeSlots
+            slots={slots}
+            selectedTime={selectedTime}
+            onSelectTime={setSelectedTime}
+          />
+        </div>
+
+        <div className="main__actions">
+          <a className="btn" href="#" onClick={handleSubmit}>Далее</a>
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }
