@@ -15,7 +15,6 @@ function App() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [slots, setSlots] = useState(() => getSlotsForDate(TODAY));
   
-
   function handleSelectDay(date) {
     setSelectedDay(date);
     setSelectedTime(null);
