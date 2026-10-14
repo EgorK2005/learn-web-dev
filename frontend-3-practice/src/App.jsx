@@ -3,6 +3,7 @@ import Header from './components/Header.jsx';
 import Steps from './components/Steps.jsx';
 import Calendar from './components/Calendar.jsx';
 import TimeSlots from './components/TimeSlots.jsx';
+import BookingBottomBar from './components/Bookingbottombar.jsx';
 import Footer from './components/Footer.jsx';
 import { TODAY, formatSelection } from './utils/date.js';
 import { getSlotsForDate } from './data/slots.js';
@@ -12,19 +13,21 @@ function App() {
   const [currentYear, setCurrentYear] = useState(TODAY.getFullYear());
   const [selectedDay, setSelectedDay] = useState(TODAY); 
   const [selectedTime, setSelectedTime] = useState(null);
-
-
-  const slots = selectedDay ? getSlotsForDate(selectedDay) : [];
+  const [slots, setSlots] = useState(() => getSlotsForDate(TODAY));
 
   function handleSelectDay(date) {
     setSelectedDay(date);
     setSelectedTime(null);
+    setSlots(getSlotsForDate(date));
   }
 
   function changeMonth(delta) {
     const next = new Date(currentYear, currentMonth + delta, 1);
     setCurrentMonth(next.getMonth());
     setCurrentYear(next.getFullYear());
+    setSelectedDay(null);
+    setSelectedTime(null);
+    setSlots([]);
   }
 
   function handleSubmit(event) {
@@ -68,6 +71,7 @@ function App() {
         </div>
 
         <div className="main__actions">
+          <BookingBottomBar selectedDay={selectedDay} selectedTime={selectedTime} />
           <a className="btn" href="#" onClick={handleSubmit}>Далее</a>
         </div>
       </main>
